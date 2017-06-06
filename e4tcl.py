@@ -8,6 +8,13 @@ import argparse
 import log
 import clparser
 
+import maindialog
+
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+
+
 logger = logging.getLogger("")
 
 
@@ -56,17 +63,25 @@ if __name__ == '__main__':
     else:
         args.output = os.path.join(os.getcwd(), "contacts.vcf")
 
-    cl_merged = []
-    for cl_path in args.input:
-        if not os.path.isfile(cl_path):
-            raise AttributeError("Given cl_path does not exist!")
+    if args.input:
+        cl_merged = []
+        for cl_path in args.input:
+            if not os.path.isfile(cl_path):
+                raise AttributeError("Given cl_path does not exist!")
 
-        cl_merged.extend(clparser.load_cl(cl_path))
-    vcard_data = cl2vcard(cl_merged)
+            cl_merged.extend(clparser.load_cl(cl_path))
+        vcard_data = cl2vcard(cl_merged)
 
-    if vcard_data:
-        write_vcf(args.output, vcard_data)
+        if vcard_data:
+            write_vcf(args.output, vcard_data)
+        else:
+            logger.warning("No contacts found/given!")
+            print("No contacts found/given!")
     else:
-        logger.warning("No contacts found/given!")
-        print("No contacts found/given!")
-
+        app = QApplication(sys.argv)
+        app.setOrganizationName("e4tcl")
+        app.setOrganizationDomain("com.e4tcl.e4tcl")
+        app.setApplicationName("e4tcl")
+        dialog = maindialog.MainDialog(args)
+        dialog.show()
+        app.exec_()
