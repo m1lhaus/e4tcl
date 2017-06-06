@@ -73,7 +73,7 @@ def setup_logging(enable):
         os.makedirs(LOG_DIR)
 
     date = datetime.datetime.now()
-    msg_format = "%(threadName)-10s  %(name)-30s %(lineno)-.5d  %(levelname)-8s %(asctime)-20s  %(message)s"
+    msg_format = "%(threadName)-10s %(lineno)-.5d  %(levelname)-8s %(asctime)-20s  %(message)s"
     console_formatter = logging.Formatter(msg_format)
 
     if enable:
