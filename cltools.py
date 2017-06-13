@@ -15,11 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+
+"""
+Helper tools for parsing contact lists from XLS format and create vCard contacts
+-   parse XLS cl list
+-   fill vCard
+-   dump vCard contacts to VCF file
+"""
+
 import os
 import sys
 import re
 import logging
-
 
 logger = logging.getLogger("")
 
@@ -33,7 +40,7 @@ def load_cl(cl_path: str) -> list:
     if not cl_data or not cl_data[0].strip() != "<table>" or cl_data[-1].strip() != "</table>":
         raise ValueError("Wrong input data format!")
 
-    markups_re = re.compile("<\S+/?>")      # to remove remaining html markups
+    markups_re = re.compile("<\S+/?>")  # to remove remaining html markups
     parsed_cl = []
     for cl_row in cl_data:
         cl_row = cl_row.strip()
@@ -50,52 +57,6 @@ def load_cl(cl_path: str) -> list:
 
 def valid_data(data_str: str) -> bool:
     return data_str and "&nbsp;" not in data_str
-
-
-# def create_vcard(cl_row):
-#     lastname, firstname, landline, mobile, email, department, position, place, edited = cl_row
-#
-#     if not valid_data(firstname) and not valid_data(lastname):
-#         logger.debug("Faulty record in contact list, at least one name has to be filled. "
-#                      "Given firstname: %s, lastname: %s", firstname, lastname)
-#         return ""
-#
-#     vcard = vobject.vCard()
-#     vcard.add("n")
-#     vcard.n.value = vobject.vcard.Name(family=lastname, given=firstname )
-#     vcard.add("fn")
-#     vcard.fn.value = firstname + " " + lastname
-#
-#     if valid_data(email):
-#         vcard.add("email")
-#         vcard.email.type_param = 'work'
-#         vcard.email.value = email
-#     # if valid_data(landline):
-#     #     vcard.add("tel")
-#     #     vcard.tel.value = landline
-#     #     vcard.tel.type_param = 'work,voice'
-#     #     print(landline, repr(landline))
-#     if valid_data(mobile):
-#         vcard.add("tel")
-#         vcard.tel.value = mobile
-#         vcard.tel.type_param = 'cell'
-#     if valid_data(position):
-#         vcard.add("role")
-#         vcard.role.value = position
-#     if valid_data(department):
-#         vcard.add("title")
-#         vcard.title.value = department
-#     if valid_data(place):
-#         vcard.add("adr")
-#         vcard.adr.value = vobject.vcard.Address(city=place)
-#         vcard.adr.type_param = 'work'
-#     if valid_data(edited):
-#         vcard.add("note")
-#         vcard.note.value = "Updated on %s" % edited
-#
-#     vcard.prettyPrint()
-#
-#     return vcard.serialize()
 
 
 def create_vcard(cl_row: tuple) -> str:
@@ -130,3 +91,18 @@ def create_vcard(cl_row: tuple) -> str:
 
     return "\n".join(vcard_data)
 
+
+def cl2vcard(cl):
+    vcard_data = []
+    for cl_row in cl:
+        vcard_data.append(create_vcard(cl_row))
+    return vcard_data
+
+
+def write_vcf(dest_path, vcard_data):
+    logger.info("Saving contacts to '%s'", dest_path)
+
+    with open(dest_path, 'w', encoding="utf-8") as f:
+        for vcard in vcard_data:
+            f.write(vcard)
+            f.write("\n")

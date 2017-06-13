@@ -20,23 +20,13 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QListWidget" name="folderList">
+     <widget class="QListWidget" name="fileList">
       <property name="minimumSize">
        <size>
         <width>250</width>
         <height>0</height>
        </size>
       </property>
-      <item>
-       <property name="text">
-        <string>aaaa</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>asss</string>
-       </property>
-      </item>
      </widget>
     </item>
     <item>
