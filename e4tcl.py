@@ -60,10 +60,10 @@ logger = logging.getLogger("")
 
 
 if __name__ == '__main__':
-    args_parser = argparse.ArgumentParser(description="", add_help=False)
-    args_parser.add_argument('input', nargs='*', type=str, help='')
-    args_parser.add_argument('-d', "--debug", action='store_true', help="debug mode")
-    args_parser.add_argument('-o', '--output', type=str, help='')
+    args_parser = argparse.ArgumentParser(description="", add_help=True)
+    args_parser.add_argument('input', nargs='*', type=str, help='list of XLS files with contacts')
+    args_parser.add_argument('-d', "--debug", action='store_true', help="enables debug logging")
+    args_parser.add_argument('-o', '--output', type=str, help='output filepath of VCF file')
     args = args_parser.parse_args()
 
     # turn ON/OFF logging
