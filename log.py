@@ -69,7 +69,7 @@ class InfoFilter(logging.Filter):
 
 
 def setup_logging(enable):
-    if not os.path.isdir(LOG_DIR):
+    if not os.path.isdir(LOG_DIR) and enable:
         os.makedirs(LOG_DIR)
 
     date = datetime.datetime.now()
