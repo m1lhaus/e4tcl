@@ -7,7 +7,7 @@ Simple company VCF contact generator from contact list stored in HTML format.
 
 ## GUI
 
-e4tcl has rich modern GUI based on Qt framework. It supports all Windows versions since WinXP and scales to custom DPI.
+e4tcl has GUI based on Qt framework. It supports all Windows versions since WinXP and scales to custom DPI.
 
 ![e4tcl GUI](images/screen.PNG "e4tcl GUI")
 
