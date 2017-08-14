@@ -112,15 +112,19 @@ class MainDialog(QMainWindow, mainform.Ui_MainWindow):
             return
 
         logger.debug("Dumping contacts into vCard format...")
-        vcard_data = cltools.cl2vcard(cl_merged)  # dump contacts to vcard format
+        vcard_data = cltools.cl2vcard(cl_merged, self.nokiaCheckBox.isChecked())  # dump contacts to vcard format
 
         if not vcard_data:
             logger.debug("No contacts in vCard format")
             return
 
-        selected_file, _ = QFileDialog.getSaveFileName(self, "Save file location",
-                                                       os.path.dirname(sys.argv[0]),
-                                                       "vCard file(*.vcf)")
+        if self.nokiaCheckBox.isChecked():
+            dialog_path = os.path.join(os.path.dirname(sys.argv[0]), "backup.dat")
+            dialog_filter = "Data file(*.dat)"
+        else:
+            dialog_path = os.path.dirname(sys.argv[0])
+            dialog_filter = "vCard file(*.vcf)"
+        selected_file, _ = QFileDialog.getSaveFileName(self, "Save file location", dialog_path, dialog_filter)
         logger.debug("Selected save location '%s'", selected_file)
 
         if not selected_file:

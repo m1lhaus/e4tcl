@@ -64,6 +64,7 @@ if __name__ == '__main__':
     args_parser.add_argument('input', nargs='*', type=str, help='list of XLS files with contacts')
     args_parser.add_argument('-d', "--debug", action='store_true', help="enables debug logging")
     args_parser.add_argument('-o', '--output', type=str, help='output filepath of VCF file')
+    args_parser.add_argument('-n', '--nokia', action='store_true', help="use Nokia compatible VCF format")
     args = args_parser.parse_args()
 
     # turn ON/OFF logging
@@ -85,7 +86,7 @@ if __name__ == '__main__':
                 raise AttributeError("Given cl_path does not exist!")
 
             cl_merged.extend(cltools.load_cl(cl_path))
-        vcard_data = cltools.cl2vcard(cl_merged)
+        vcard_data = cltools.cl2vcard(cl_merged, args.nokia)
 
         if vcard_data:
             cltools.write_vcf(args.output, vcard_data)

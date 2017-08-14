@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'mainform.ui'
+# Form implementation generated from reading ui file 'uic\mainform.ui'
 #
 # Created by: PyQt5 UI code generator 5.8.2
 #
@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(484, 153)
+        MainWindow.resize(505, 168)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/e4tcl.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -33,6 +33,9 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.removeBtn)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
+        self.nokiaCheckBox = QtWidgets.QCheckBox(self.centralwidget)
+        self.nokiaCheckBox.setObjectName("nokiaCheckBox")
+        self.verticalLayout.addWidget(self.nokiaCheckBox)
         self.generateBtn = QtWidgets.QPushButton(self.centralwidget)
         self.generateBtn.setObjectName("generateBtn")
         self.verticalLayout.addWidget(self.generateBtn)
@@ -47,6 +50,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "e4tcl"))
         self.addBtn.setText(_translate("MainWindow", "Add"))
         self.removeBtn.setText(_translate("MainWindow", "Remove"))
+        self.nokiaCheckBox.setText(_translate("MainWindow", "Nokia phone"))
         self.generateBtn.setText(_translate("MainWindow", "Generate"))
 
 import icons_rc

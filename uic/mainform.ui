@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>484</width>
-    <height>153</height>
+    <width>505</width>
+    <height>168</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,6 +57,13 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="nokiaCheckBox">
+        <property name="text">
+         <string>Nokia phone</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="generateBtn">
