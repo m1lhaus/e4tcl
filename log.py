@@ -1,19 +1,4 @@
 # -*- coding: utf-8 -*-
-#
-# Copyright (C) 2015 Milan Herbig <milanherbig[at]gmail.com>
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 """
 -   Stream redirector - copies all stderr stream to logger as error messages
@@ -57,13 +42,14 @@ class StreamToLogger(object):
             self.logger.log(self.log_level, line.rstrip())
 
     def __getattr__(self, name):
-        return self.orig_output.__getattribute__(name)              # pass all other methods to original fd
+        return self.orig_output.__getattribute__(name)  # pass all other methods to original fd
 
 
 class InfoFilter(logging.Filter):
     """
     Logging filter. Filters out ERROR messages and higher.
     """
+
     def filter(self, rec):
         return rec.levelno in (logging.DEBUG, logging.INFO)
 
@@ -77,10 +63,10 @@ def setup_logging(enable):
     console_formatter = logging.Formatter(msg_format)
 
     if enable:
-        log_path = os.path.join(LOG_DIR, "e4tcl_%s.log" % date.strftime("%Y-%m-%d_%H-%M-%S"))
+        log_path = os.path.join(LOG_DIR, "dqcl_%s.log" % date.strftime("%Y-%m-%d_%H-%M-%S"))
         logging.basicConfig(level=logging.DEBUG, format=msg_format, filename=log_path)
 
-        logger = logging.getLogger('')      # get root logger
+        logger = logging.getLogger('')  # get root logger
 
         # redirects all stderr output (exceptions, etc.) to logger ERROR level
         sys.stderr = StreamToLogger(1, logger, logging.ERROR)
@@ -88,7 +74,7 @@ def setup_logging(enable):
         # if not win32gui application, add console handlers
         if not IS_WIN32_EXE:
             # setup logging warning and errors to stderr
-            console_err = logging.StreamHandler(stream=sys.__stderr__)      # write to original stderr, not to the logger
+            console_err = logging.StreamHandler(stream=sys.__stderr__)  # write to original stderr, not to the logger
             console_err.setLevel(logging.WARNING)
             console_err.setFormatter(console_formatter)
             logger.addHandler(console_err)
@@ -101,5 +87,5 @@ def setup_logging(enable):
             logger.addHandler(console_std)
 
     else:
-        logger = logging.getLogger('')      # get root logger
-        logger.propagate = False            # disable logging
+        logger = logging.getLogger('')  # get root logger
+        logger.propagate = False  # disable logging

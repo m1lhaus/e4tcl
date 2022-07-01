@@ -1,24 +1,10 @@
 # -*- coding: utf-8 -*-
-#
-# Copyright (C) 2015 Milan Herbig <milanherbig[at]gmail.com>
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import os
 import sys
 import logging
 
+import pandas as pd
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -47,7 +33,7 @@ class MainDialog(QMainWindow, mainform.Ui_MainWindow):
 
         fileDialog = QFileDialog(self)
         fileDialog.setFileMode(QFileDialog.ExistingFiles)
-        fileDialog.setNameFilter("Contact list (*.xls)")
+        fileDialog.setNameFilter("Contact list (*.xlsx)")
         fileDialog.setDirectory(os.path.dirname(sys.argv[0]))
 
         logger.debug("Opening file dialog")
@@ -99,17 +85,23 @@ class MainDialog(QMainWindow, mainform.Ui_MainWindow):
 
             try:
                 logger.debug("Parsing cl file '%s'...", cl_path)
-                cl_merged.extend(cltools.load_cl(cl_path))  # parse contacts from given file
+                cl_merged.append(cltools.load_cl(cl_path))  # parse contacts from given file
             except Exception:
                 logger.exception("Error when parsing cl files")
                 QMessageBox(QMessageBox.Critical,
                             "Error",
-                            "Error when parsing contacts from XLS file '%s'!" % cl_path,
+                            "Error when parsing contacts from XLSX file '%s'!" % cl_path,
                             QMessageBox.Ok).exec_()
 
         if not cl_merged:
             logger.debug("No contacts parsed")
             return
+        else:
+            if len(cl_merged) > 1:
+                cl_merged = pd.concat(cl_merged)
+                cl_merged = cl_merged.drop_duplicates()
+            else:
+                cl_merged = cl_merged[0]
 
         logger.debug("Dumping contacts into vCard format...")
         vcard_data = cltools.cl2vcard(cl_merged, self.nokiaCheckBox.isChecked())  # dump contacts to vcard format

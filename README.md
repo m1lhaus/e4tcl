@@ -1,23 +1,27 @@
-# e4tcl
+# dqcl
 
-Simple company VCF contact generator from contact list stored in HTML format.
+Simple company VCF contact generator from contact list stored in Excel files.
 
-- pure Python 3
-- Qt framework via PyQt5
+- Python 3
+- [Pandas](https://pandas.pydata.org)
+- [OpenPyXL](https://openpyxl.readthedocs.io)
+- Qt framework via [PyQt5](https://pypi.org/project/PyQt5/)
 
 ## GUI
 
-e4tcl has GUI based on Qt framework. It supports all Windows versions since WinXP and scales to custom DPI.
+dqcl has GUI based on Qt framework. It supports all Windows versions since WinXP and scales to custom DPI.
 
-![e4tcl GUI](images/screen.PNG "e4tcl GUI")
+![dqcl GUI](images/screen.PNG "dqcl GUI")
+
+Simply use Add button to select Excel files with contacts you've exported from Infoportal. Optionally the app can generate contacts in old format for Nokia dumb phones.
 
 ## CLI
 
-e4tcl also offers command line interface. Unfortunately no stdout output is provided for GUI executable due win32 limitations.
+dqcl also offers command line interface. Unfortunately no stdout output is provided for GUI executable due win32 limitations.
 
 
 ```
-usage: e4tcl.py [-h] [-d] [-o OUTPUT] [input [input ...]]
+usage: dqcl.py [-h] [-d] [-o OUTPUT] [input [input ...]]
 
 positional arguments:
   input                 list of XLS files with contacts
@@ -38,8 +42,4 @@ optional arguments:
 
 ## Download
 
-For download, please refer to releases section. Available binary was build under Windows 7 targeting MSVCR14.
-
-## Licence
-
-GPL v3
+For download, please refer to releases section. Available binary were build under Windows 10 targeting MSVCR14.

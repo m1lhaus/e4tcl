@@ -3,8 +3,8 @@
 block_cipher = None
 
 
-a = Analysis(['e4tcl.py'],
-             pathex=['C:\\Users\\MilhausDesk\\PycharmProjects\\e4tcl'],
+a = Analysis(['dqcl.py'],
+             pathex=['.'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -21,10 +21,9 @@ exe = EXE(pyz,
           a.binaries,
           a.zipfiles,
           a.datas,
-          name='e4tcl',
+          name='dqcl',
           debug=False,
           strip=False,
           upx=False,
           console=False,
           icon=".\\icons\\e4tcl.ico")
-

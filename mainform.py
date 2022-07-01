@@ -47,7 +47,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "e4tcl"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "dqcl"))
         self.addBtn.setText(_translate("MainWindow", "Add"))
         self.removeBtn.setText(_translate("MainWindow", "Remove"))
         self.nokiaCheckBox.setText(_translate("MainWindow", "Nokia phone"))
