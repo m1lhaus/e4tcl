@@ -7,18 +7,29 @@ Simple company VCF contact generator from contact list stored in Excel files.
 - [OpenPyXL](https://openpyxl.readthedocs.io)
 - Qt framework via [PyQt5](https://pypi.org/project/PyQt5/)
 
-## GUI
+## How to
+
+### Download
+
+Download the [latest windows binary version](https://nexus.dq.vwgroup.com/repository/dq-raw/DQD-tools/dqcl/dqcl.exe) from Nexus. Alternatively clone the repo, install the dependencies and run `dqcl.py`.
+
+### Export DQ contact list
+
+Export the [contact list from the InfoPortal](https://infoportal.dq.skoda.vwg/APP/PBS/Lists/Kontakty/Employees.aspx). Just select "Export to Excel" button. Alternatively you can set custom filters and export custom subset of the list. The script query.iqy will be downloaded. Open the script and save created Excel table to XLSX. If needed, you can do this procedure for multiple custom exports resulting in more than one Excel files.
+
+### Generate vCard contacts via GUI
 
 dqcl has GUI based on Qt framework. It supports all Windows versions since WinXP and scales to custom DPI.
+
+Open `dqcl.exe`, choose exported Excel files via Add and Generate the contact list.
 
 ![dqcl GUI](images/screen.PNG "dqcl GUI")
 
 Simply use Add button to select Excel files with contacts you've exported from Infoportal. Optionally the app can generate contacts in old format for Nokia dumb phones.
 
-## CLI
+### Generate vCard contacts via CLI
 
 dqcl also offers command line interface. Unfortunately no stdout output is provided for GUI executable due win32 limitations.
-
 
 ```
 usage: dqcl.py [-h] [-d] [-o OUTPUT] [input [input ...]]
@@ -49,10 +60,3 @@ pyinstaller dqcl.spec
 ```
 
 The binary will be build into `./dist` folder.
-
-## Requirements
-
-
-## Download
-
-For download, please refer to releases section. Available binary were build under Windows 10 targeting MSVCR14.
