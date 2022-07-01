@@ -11,7 +11,9 @@ Simple company VCF contact generator from contact list stored in Excel files.
 
 ### Download
 
-Download the [latest windows binary version](https://nexus.dq.vwgroup.com/repository/dq-raw/DQD-tools/dqcl/dqcl.exe) from Nexus. Alternatively clone the repo, install the dependencies and run `dqcl.py`.
+Download the [latest windows binary version](https://nexus.dq.vwgroup.com/repository/dq-raw/DQD-tools/dqcl/dqcl.exe) from Nexus. The binary is unfortunately pretty huge since it likely contains big DLLs from dependencies and likely also MS runtime DDLs. I am too lazy to go though them and exclude them :) 
+
+Alternatively clone the repo, install the dependencies and run `dqcl.py`.
 
 ### Export DQ contact list
 
