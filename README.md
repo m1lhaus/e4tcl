@@ -39,6 +39,19 @@ optional arguments:
 - Python 3+
 - PyQt 5+
 - PyInstaller 3.2+ (for build)
+- Pandas
+- OpenPyXL
+
+## Build
+
+```
+pyinstaller dqcl.spec
+```
+
+The binary will be build into `./dist` folder.
+
+## Requirements
+
 
 ## Download
 
