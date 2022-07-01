@@ -1,4 +1,4 @@
-# dqcl
+# dqcl vCard contact list generator
 
 Simple company VCF contact generator from contact list stored in Excel files.
 
