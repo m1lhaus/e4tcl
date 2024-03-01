@@ -18,7 +18,7 @@ import pandas as pd
 logger = logging.getLogger("")
 
 
-def load_cl(cl_path: str) -> list:
+def load_cl(cl_path: str) -> pd.DataFrame:
     logger.debug("Reading file '%s'", cl_path)
     wb = openpyxl.load_workbook(filename=cl_path, read_only=True, data_only=True)
     ws = wb.active
@@ -48,11 +48,9 @@ def create_vcard(cl_row: pd.Series, nokia: bool) -> str:
 
     lastname = cl_row["Příjmení | Název"]
     firstname = cl_row["Jméno"]
-    name_shortcut = cl_row["Zkratka zaměstnance"]
     mobile = cl_row["Číslo mobilního telefonu"]
     email = cl_row["E-mail"]
     department = cl_row["Organizační jednotka"]
-    position = cl_row["Název pozice"]
     city = cl_row["Pracoviště"]
     building = cl_row["Budova"]
     floor = cl_row["Patro"]
@@ -67,9 +65,7 @@ def create_vcard(cl_row: pd.Series, nokia: bool) -> str:
         vcard_data.append("N:%s;%s;;;" % (lastname, firstname))
         vcard_data.append("FN:%s %s" % (firstname, lastname))
         vcard_data.append("EMAIL;TYPE=work:%s" % email)
-        vcard_data.append("NICKNAME:%s" % name_shortcut)
         vcard_data.append("TEL;TYPE=cell:%s" % mobile)
-        vcard_data.append("ROLE:%s" % position)
         vcard_data.append("ORG:%s" % department)
         vcard_data.append(f"ADR;TYPE=work:;{building};{floor} - kancelář {office};{city};;;")
         vcard_data.append("END:VCARD")
@@ -113,3 +109,13 @@ def write_vcf(dest_path, vcard_data):
         for vcard in vcard_data:
             f.write(vcard)
             f.write("\n")
+
+
+if __name__ == '__main__':
+    cl_path = r"c:\Users\td05lpy\Downloads\contacts.xlsx"
+    output_vcf = r"c:\Users\td05lpy\Downloads\contacts.vcf"
+    cl_df = load_cl(cl_path)
+    vcard_data = cl2vcard(cl_df, False)
+    if vcard_data:
+        write_vcf(output_vcf, vcard_data)
+        print("Contacts saved to '%s'" % output_vcf)

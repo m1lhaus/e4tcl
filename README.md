@@ -57,8 +57,10 @@ optional arguments:
 
 ## Build
 
+In order to build, use **vanilla Python distribution** and install only required packages from `requirements.txt`. If you use some custom distribution like anaconda, pyinstaller hooks might not find all packages correctly.
+
 ```
 pyinstaller dqcl.spec
 ```
 
-The binary will be build into `./dist` folder.
+The binary will be built into `./dist` folder.
